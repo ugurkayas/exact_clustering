@@ -1,5 +1,6 @@
 clear all;
 clc;
+
 x=[1,1.1,1.2,1.3,1.4,5,5.1,5.2,5.3,5.4];           % sample data
 lambda=1;                                          % penalizer                            
 N= length(x);                                      % length of the data
@@ -20,7 +21,7 @@ for j=(2:N)                                        % objective value matris calc
 end
 
 
-% O(N^2.L) time, O(N.L) memory implementation      % min-plus semiring with tuples
+                                                   % min-plus semiring with tuples
 opplus = @opselminjoin;                                                                 
 idplus.val = inf;
 idplus.list = {};
