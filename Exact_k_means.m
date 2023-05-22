@@ -13,7 +13,7 @@ for j =1:N                                      % objective value matris calcula
     end
 end
 
-% O(N^2.L) time, O(N.L) memory implementation    % min-plus semiring with tuples
+                                                  % min-plus semiring with tuples
 opplus = @opselminjoin;
 idplus.val = inf;
 idplus.list = {};
