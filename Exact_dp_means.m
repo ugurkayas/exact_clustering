@@ -1,14 +1,14 @@
 clear all;
 clc;
-x=[1,1.1,1.2,1.3,1.4,5,5.1,5.2,5.3,5.4];                                              %sample data
-lambda=1;                                                                             %penalizer                            
-N= length(x);                                                                         %length of the data
-mu=zeros(N,N);                                                                        %global mean matris for each possible mean from i to j
-eij = zeros(N,N);                                                                     %objective value matris for each possible mean from i to j
-mu(1,1)=x(1);                                                                         %initialization of the mean matris
-eij(1,1)=lambda;                                                                      %initialization of the objective value matris 
+x=[1,1.1,1.2,1.3,1.4,5,5.1,5.2,5.3,5.4];                                              % sample data
+lambda=1;                                                                             % penalizer                            
+N= length(x);                                                                         % length of the data
+mu=zeros(N,N);                                                                        % global mean matris for each possible mean from i to j
+eij = zeros(N,N);                                                                     % objective value matris for each possible mean from i to j
+mu(1,1)=x(1);                                                                         % initialization of the mean matris
+eij(1,1)=lambda;                                                                      % initialization of the objective value matris 
                                                                         
-for j=(2:N)                                                                           %objective value matris calculation
+for j=(2:N)                                                                           % objective value matris calculation
     for i=(1:j)
         mu(i,j) = (1/(j-i+1))*((j-i)*mu(i,j-1)+x(j));
         if i==j
@@ -20,15 +20,15 @@ for j=(2:N)                                                                     
 end
 
 
-
-opplus = @opselminjoin;
+                                                                                       % min-plus semiring with tuples
+opplus = @opselminjoin;                                                                 
 idplus.val = inf;
 idplus.list = {};
 optimes = @opselpluscross;
 idtimes.val = 0;
 idtimes.list = {{}};
 
-E = cell(N+1,1);
+E = cell(N+1,1);                                                                        % Bellman's recursion
 for i = 1:N+1
      E{i,1} = idplus;
 end
@@ -40,16 +40,16 @@ for j = 1:N
     end
 end
 
-segs = E{N+1,1}.list;
+segs = E{N+1,1}.list;                                                                  % extracting the final clustering setting
 for k = 1:length(segs)
     fprintf('[');
     fprintf('(%d,%d)',segs{k}{:});
     fprintf(']');
 end
-fprintf('\n\n');
+fprintf('\n\n');                                                                       % the final clustering setting
 segs = E{N+1,1}.list{1};
 LE = length(segs);
 
-E{N+1,1}.val
+E{N+1,1}.val                                                                           % objective value
 
 
