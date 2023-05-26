@@ -1,7 +1,8 @@
 clear all;
 clc;
 
-x=[1,1.1,1.2,1.3,1.4,5,5.1,5.2,5.3,5.4];        % sample data
+x=[5.3,1,5.1,5.4,1.2,1.4,1.3,5,5.2,1.1];        % sample data
+x=sort(x);                                      % sorting the data
 K=2;                                            % the number of clusters
 N= length(x);                                   % length of the data
 mu=zeros(N,N);                                  % global mean matris for each possible mean from i to j
