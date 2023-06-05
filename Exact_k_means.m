@@ -1,9 +1,6 @@
-clear all;
-clc;
+function [y,c]= Exact_k_means(x,k)
 
-x=[5.3,1,5.1,5.4,1.2,1.4,1.3,5,5.2,1.1];        % sample data
 x=sort(x);                                      % sorting the data
-K=2;                                            % the number of clusters
 N= length(x);                                   % length of the data
 mu=zeros(N,N);                                  % global mean matris for each possible mean from i to j
 eij = zeros(N,N);                               % objective value matris for each possible mean from i to j
@@ -14,7 +11,7 @@ for j =1:N                                      % objective value matris calcula
     end
 end
 
-                                                  % min-plus semiring with tuples
+% O(N^2.L) time, O(N.L) memory implementation    % min-plus semiring with tuples
 opplus = @opselminjoin;
 idplus.val = inf;
 idplus.list = {};
@@ -27,7 +24,7 @@ for i = 1:N+1
     E{i,1} = idplus;
 end
 E{1,1} = idtimes;
-for m=1:K                                                                              
+for m=1:k                                                                              
   for j = N:-1:1
    for i = 1:j
         E{j+1} = opplus(E{j+1},optimes(E{i},opselinit(eij(i,j),[i,j])));
@@ -37,13 +34,10 @@ end
 
 clusters = E{N+1,1}.list;                         % extracting the final clustering setting
 for k = 1:length(clusters)
-    fprintf('[');
-    fprintf('(%d,%d)',clusters{k}{:});
-    fprintf(']');
+  c=sprintf('(%d,%d)',clusters{k}{:});            
 end
-
-fprintf('\n\n');                                  % the final clustering setting
-
-E{N+1,1}.val                                      % objective value
+c=append('[',c,']');                              % the final clustering setting                                       
+y=E{N+1,1}.val;                                   % objective value
+end
 
 
