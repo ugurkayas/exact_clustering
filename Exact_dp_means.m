@@ -1,9 +1,6 @@
-clear all;
-clc;
+function [y,c]= Exact_dp_means(x,lambda)
 
-x=[5.3,1,5.1,5.4,1.2,1.4,1.3,5,5.2,1.1];           % sample data
 x=sort(x);                                         % sorting the data
-lambda=1;                                          % penalizer                            
 N= length(x);                                      % length of the data
 mu=zeros(N,N);                                     % global mean matris for each possible mean from i to j
 eij = zeros(N,N);                                  % objective value matris for each possible mean from i to j
@@ -44,11 +41,9 @@ end
 
 clusters = E{N+1,1}.list;                         % extracting the final clustering setting
 for k = 1:length(clusters)
-    fprintf('[');
-    fprintf('(%d,%d)',clusters{k}{:});
-    fprintf(']');
+  c=sprintf('(%d,%d)',clusters{k}{:});            
 end
+c=append('[',c,']');                              % the final clustering setting                                       
+y=E{N+1,1}.val;                                   % objective value
 
-fprintf('\n\n');                                  % the final clustering setting
-
-E{N+1,1}.val                                      % objective value
+end
