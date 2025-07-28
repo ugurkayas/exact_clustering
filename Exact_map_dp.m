@@ -42,7 +42,7 @@ for k = 1:length(clusters)
 end
 c=append('[',c,']');                              % the final clustering setting                                       
 y=E{N+1,1}.val-gammaln(alpha0) + gammaln(alpha0+N);  % final objective value
-function nl = Gaussian_nll(X,mu_k,sigma_k,sigma_hat)  %% Gaussian negative log-likelihood
+function nl = Gaussian_nll(X,mu_k,sigma_k,sigma_hat)  % Gaussian negative log-likelihood
    nl = (1/(2*(sigma_k+sigma_hat^2)))*sum((abs(X-mu_k)).^2)+(1/2)*log(sigma_k+sigma_hat^2); 
 end
 end
